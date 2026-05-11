@@ -7,6 +7,7 @@ param(
     [string]$ManagerAddress,
     [string]$BidBoardAddress,
     [string]$UsdcAddress,
+    [string]$ArcIdentityRegistryAddress,
     [string]$ProjectRoot
 )
 
@@ -121,7 +122,7 @@ $EscrowAddress = Get-Setting -EnvMap $envMap -CurrentValue $EscrowAddress -Keys 
 $ManagerAddress = Get-Setting -EnvMap $envMap -CurrentValue $ManagerAddress -Keys @("JOB_MANAGER_ADDRESS", "MANAGER_ADDRESS") -Label "ManagerAddress" -Required
 $BidBoardAddress = Get-Setting -EnvMap $envMap -CurrentValue $BidBoardAddress -Keys @("BID_BOARD_ADDRESS", "BIDBOARD_ADDRESS") -Label "BidBoardAddress" -Required
 $UsdcAddress = Get-Setting -EnvMap $envMap -CurrentValue $UsdcAddress -Keys @("USDC_ADDRESS") -Label "UsdcAddress" -Required
-$ArcIdentityRegistry = Get-Setting -EnvMap $envMap -CurrentValue $null -Keys @("ARC_IDENTITY_REGISTRY") -Label "ArcIdentityRegistry" -Required
+$ArcIdentityRegistry = Get-Setting -EnvMap $envMap -CurrentValue $ArcIdentityRegistryAddress -Keys @("ARC_IDENTITY_REGISTRY") -Label "ArcIdentityRegistry" -Required
 
 Write-Host "Project root: $ProjectRoot"
 Write-Host "Chain ID: $ChainId"
