@@ -25,6 +25,10 @@ contract PredeployCheckScript is Script {
             "TRANSFER_OWNERSHIP",
             false
         );
+        address arcIdentityRegistry = vm.envOr(
+            "ARC_IDENTITY_REGISTRY",
+            address(0)
+        );
 
         require(deployerKey != 0, "PRIVATE_KEY missing");
         require(expectedChainId != 0, "EXPECTED_CHAIN_ID missing/zero");
@@ -69,6 +73,7 @@ contract PredeployCheckScript is Script {
         console2.log("platformFeeBps:   ", platformFeeBps);
         console2.log("disputeDelay(s):  ", disputeDelay);
         console2.log("minBidScore:      ", minimumBidScore);
+        console2.log("arcIdentity:      ", arcIdentityRegistry);
         console2.log("========================================");
     }
 
