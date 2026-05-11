@@ -252,7 +252,7 @@ reputationOracle.setMinimumScoreForBidding(500); // out of 1000
 
 ```mermaid
 graph TD
-    subgraph "Arc Global Layer"
+    subgraph "Arc Network"
         ArcID["IdentityRegistry\n(ERC-8004)"]
     end
 
