@@ -115,12 +115,13 @@ $envPath = Join-Path $ProjectRoot ".env"
 $envMap = Parse-DotEnv -Path $envPath
 
 $ChainId = Get-Setting -EnvMap $envMap -CurrentValue $ChainId -Keys @("EXPECTED_CHAIN_ID", "CHAIN_ID") -Label "ChainId" -Required
-$RegistryAddress = Get-Setting -EnvMap $envMap -CurrentValue $RegistryAddress -Keys @("AGENT_REGISTRY_ADDRESS", "REGISTRY_ADDRESS") -Label "RegistryAddress" -Required
+$RegistryAddress = Get-Setting -EnvMap $envMap -CurrentValue $RegistryAddress -Keys @("MARKETPLACE_REGISTRY_ADDRESS", "AGENT_REGISTRY_ADDRESS", "REGISTRY_ADDRESS") -Label "RegistryAddress" -Required
 $ReputationAddress = Get-Setting -EnvMap $envMap -CurrentValue $ReputationAddress -Keys @("REPUTATION_ADDRESS") -Label "ReputationAddress" -Required
 $EscrowAddress = Get-Setting -EnvMap $envMap -CurrentValue $EscrowAddress -Keys @("JOB_ESCROW_ADDRESS", "ESCROW_ADDRESS") -Label "EscrowAddress" -Required
 $ManagerAddress = Get-Setting -EnvMap $envMap -CurrentValue $ManagerAddress -Keys @("JOB_MANAGER_ADDRESS", "MANAGER_ADDRESS") -Label "ManagerAddress" -Required
 $BidBoardAddress = Get-Setting -EnvMap $envMap -CurrentValue $BidBoardAddress -Keys @("BID_BOARD_ADDRESS", "BIDBOARD_ADDRESS") -Label "BidBoardAddress" -Required
 $UsdcAddress = Get-Setting -EnvMap $envMap -CurrentValue $UsdcAddress -Keys @("USDC_ADDRESS") -Label "UsdcAddress" -Required
+$ArcIdentityRegistry = Get-Setting -EnvMap $envMap -CurrentValue $null -Keys @("ARC_IDENTITY_REGISTRY") -Label "ArcIdentityRegistry" -Required
 
 Write-Host "Project root: $ProjectRoot"
 Write-Host "Chain ID: $ChainId"
@@ -131,7 +132,7 @@ try {
     $escrowArgs = (& cast abi-encode "constructor(address)" $UsdcAddress).Trim()
     if ($LASTEXITCODE -ne 0) { throw "Failed to encode JobEscrow constructor args" }
 
-    $managerArgs = (& cast abi-encode "constructor(address,address,address)" $RegistryAddress $EscrowAddress $ReputationAddress).Trim()
+    $managerArgs = (& cast abi-encode "constructor(address,address,address,address)" $RegistryAddress $EscrowAddress $ReputationAddress $ArcIdentityRegistry).Trim()
     if ($LASTEXITCODE -ne 0) { throw "Failed to encode JobManager constructor args" }
 
     $bidBoardArgs = (& cast abi-encode "constructor(address,address,address)" $ManagerAddress $RegistryAddress $ReputationAddress).Trim()
